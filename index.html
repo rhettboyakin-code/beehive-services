@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Beehive &amp; Branch · Rhett Boyakin</title>
+  <meta name="description" content="Big agency thinking. Without the big agency. A creative director who builds the AI too. Utah. Rhett Boyakin / Beehive &amp; Branch LLC." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Caveat:wght@500;600&family=DM+Serif+Display:ital@0;1&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #F4EFE6;
+      --paper-deep: #E8E0D2;
+      --paper-folder: #EDE6D8;
+      --ink: #1A1612;
+      --amber: #C45C26;
+      --graphite: #8A7A68;
+      --rule: rgba(26, 22, 18, 0.14);
+      --rule-soft: rgba(26, 22, 18, 0.08);
+      --display: "Fraunces", "Iowan Old Style", Georgia, serif;
+      --body: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+      --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 1.0625rem;
+      font-optical-sizing: auto;
+      line-height: 1.55;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Paper grain + amber vignette */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 90% 60% at 8% 0%, rgba(196, 92, 38, 0.055), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 100% 85%, rgba(138, 122, 104, 0.09), transparent 50%),
+        radial-gradient(ellipse 50% 40% at 50% 100%, rgba(196, 92, 38, 0.03), transparent 60%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.45;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    a {
+      color: var(--ink);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 0.2em;
+      transition: color 0.15s ease, text-decoration-color 0.15s ease;
+    }
+    a:hover {
+      color: var(--amber);
+      text-decoration-color: var(--amber);
+    }
+
+    /* —— Desk surface —— */
+    .desk {
+      position: relative;
+      z-index: 2;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 1.25rem 1.5rem 0;
+    }
+
+    @media (min-width: 720px) {
+      .desk { padding: 2.5rem 2.75rem 0; }
+    }
+
+    /* Registration marks (corners) */
+    .reg {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+    .reg::before, .reg::after {
+      content: "";
+      position: absolute;
+      background: var(--graphite);
+    }
+    .reg::before { width: 1px; height: 100%; left: 50%; transform: translateX(-50%); }
+    .reg::after { height: 1px; width: 100%; top: 50%; transform: translateY(-50%); }
+    .reg-tl { top: 1.1rem; left: 1.1rem; }
+    .reg-tr { top: 1.1rem; right: 1.1rem; }
+    .reg-bl { bottom: 5.5rem; left: 1.1rem; }
+    .reg-br { bottom: 5.5rem; right: 1.1rem; }
+
+    @media (max-width: 719px) {
+      .reg { display: none; }
+    }
+
+    /* —— Mast: asymmetric —— */
+    .mast {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+      margin-bottom: 3.75rem;
+      padding-top: 0.75rem;
+      position: relative;
+    }
+
+    @media (min-width: 820px) {
+      .mast {
+        grid-template-columns: minmax(0, 1fr) 11.5rem;
+        gap: 2rem;
+        align-items: start;
+        margin-bottom: 5rem;
+      }
+    }
+
+    .mast-main { max-width: 38rem; }
+
+    .shop-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 2.1rem;
+      max-width: 38rem;
+    }
+
+    .shop-mark {
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--graphite);
+    }
+    .shop-mark .amp {
+      color: var(--amber);
+      letter-spacing: 0.06em;
+      margin: 0 0.15em;
+    }
+
+    .job-chip-inline {
+      font-family: var(--mono);
+      font-size: 0.625rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--graphite);
+      border: 1px solid var(--rule);
+      padding: 0.28rem 0.55rem;
+      white-space: nowrap;
+    }
+
+    @media (min-width: 820px) {
+      .job-chip-inline { display: none; }
+    }
+
+    /* Campaign poster hero */
+    h1.hero {
+      font-family: var(--display);
+      font-weight: 500;
+      font-optical-sizing: auto;
+      font-size: clamp(2.15rem, 7.2vw, 4.35rem);
+      line-height: 0.98;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+      max-width: 11.5ch;
+    }
+
+    h1.hero .beat {
+      display: block;
+    }
+
+    h1.hero .beat-2 {
+      margin-top: 0.08em;
+      font-size: 0.88em;
+      letter-spacing: 0.055em;
+      font-weight: 400;
+    }
+
+    h1.hero .beat-2 .accent {
+      color: var(--amber);
+    }
+
+    .quiet {
+      font-family: var(--body);
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--graphite);
+      max-width: 28ch;
+      line-height: 1.5;
+      border-left: 2px solid rgba(196, 92, 38, 0.55);
+      padding-left: 0.85rem;
+    }
+
+    /* Floating job ticket (desktop) */
+    .ticket {
+      display: none;
+    }
+
+    @media (min-width: 820px) {
+      .ticket {
+        display: block;
+        justify-self: end;
+        margin-top: 3.25rem;
+        width: 10.75rem;
+        background: var(--paper-deep);
+        border: 1px solid var(--rule);
+        padding: 0.95rem 0.9rem 1.05rem;
+        transform: rotate(2.5deg);
+        box-shadow:
+          2px 3px 0 rgba(26, 22, 18, 0.04),
+          0 8px 20px rgba(26, 22, 18, 0.05);
+        position: relative;
+      }
+
+      .ticket::before {
+        content: "";
+        position: absolute;
+        top: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 28px;
+        height: 10px;
+        background: rgba(196, 92, 38, 0.35);
+        border-radius: 1px;
+        box-shadow: 0 1px 0 rgba(26, 22, 18, 0.08);
+      }
+    }
+
+    .ticket-label {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.65rem;
+    }
+
+    .ticket-job {
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      margin-bottom: 0.85rem;
+    }
+
+    .ticket dl {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .ticket dt {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--graphite);
+    }
+
+    .ticket dd {
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      color: var(--ink);
+      margin-bottom: 0.15rem;
+    }
+
+    .ticket-perforation {
+      margin: 0.75rem 0 0.65rem;
+      border: none;
+      border-top: 1px dashed var(--rule);
+    }
+
+    /* —— Section stamps —— */
+    .stamp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--mono);
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--graphite);
+      margin-bottom: 1.35rem;
+    }
+
+    .stamp::before {
+      content: "";
+      width: 1.15rem;
+      height: 1px;
+      background: var(--amber);
+    }
+
+    section.block {
+      margin-bottom: 4.25rem;
+      position: relative;
+    }
+
+    @media (min-width: 720px) {
+      section.block { margin-bottom: 5.25rem; }
+    }
+
+    /* Cut line between zones */
+    .cut {
+      border: none;
+      height: 0;
+      border-top: 1px dashed rgba(138, 122, 104, 0.35);
+      margin: 0 0 3.5rem;
+      position: relative;
+    }
+    .cut::after {
+      content: "✂";
+      position: absolute;
+      left: -0.15rem;
+      top: -0.7rem;
+      font-size: 0.7rem;
+      color: var(--graphite);
+      opacity: 0.55;
+      transform: rotate(-90deg);
+    }
+
+    /* —— Bench: hanging tags / unequal strips —— */
+    .bench {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid var(--rule);
+    }
+
+    .tool {
+      appearance: none;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--rule);
+      width: 100%;
+      text-align: left;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+      padding: 0;
+      position: relative;
+      transition: background 0.18s ease;
+    }
+
+    /* Staggered left padding — unequal hanging tags */
+    .tool:nth-child(1) .tool-rail { padding-left: 0; }
+    .tool:nth-child(2) .tool-rail { padding-left: 1.15rem; }
+    .tool:nth-child(3) .tool-rail { padding-left: 0.45rem; }
+
+    @media (min-width: 720px) {
+      .tool:nth-child(1) .tool-rail { padding-left: 0; }
+      .tool:nth-child(2) .tool-rail { padding-left: 2.25rem; }
+      .tool:nth-child(3) .tool-rail { padding-left: 0.85rem; }
+    }
+
+    .tool:hover {
+      background: rgba(196, 92, 38, 0.03);
+    }
+
+    .tool[aria-expanded="true"] {
+      background: rgba(196, 92, 38, 0.045);
+      border-bottom-color: rgba(196, 92, 38, 0.4);
+    }
+
+    .tool-rail {
+      display: grid;
+      grid-template-columns: 3.25rem minmax(0, 1fr) auto;
+      gap: 0.75rem 1rem;
+      align-items: baseline;
+      padding: 1.2rem 0.35rem 1.25rem 0;
+    }
+
+    @media (min-width: 720px) {
+      .tool-rail {
+        grid-template-columns: 4rem minmax(0, 1fr) 6.5rem auto;
+        padding: 1.45rem 0.5rem 1.5rem 0;
+      }
+    }
+
+    .tool-id {
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--amber);
+      position: relative;
+    }
+
+    .tool-id::after {
+      content: "";
+      display: block;
+      width: 1.5rem;
+      height: 1.5rem;
+      border: 1.5px solid rgba(196, 92, 38, 0.45);
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: -0.35rem;
+      transform: translateY(-50%);
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    .tool-name {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(1.45rem, 3.4vw, 2.05rem);
+      letter-spacing: -0.01em;
+      line-height: 1.12;
+      position: relative;
+    }
+
+    .tool-name::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -0.08em;
+      width: 0;
+      height: 1.5px;
+      background: var(--amber);
+      transition: width 0.22s ease;
+    }
+
+    .tool:hover .tool-name::after,
+    .tool[aria-expanded="true"] .tool-name::after {
+      width: 100%;
+    }
+
+    .tool-tag {
+      display: none;
+      font-family: var(--mono);
+      font-size: 0.625rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--graphite);
+    }
+
+    @media (min-width: 720px) {
+      .tool-tag { display: block; }
+    }
+
+    .tool-hint {
+      font-family: var(--mono);
+      font-size: 0.625rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--graphite);
+      white-space: nowrap;
+      min-width: 3.5rem;
+      text-align: right;
+    }
+
+    .tool-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.28s ease;
+    }
+
+    .tool[aria-expanded="true"] .tool-panel {
+      grid-template-rows: 1fr;
+    }
+
+    .tool-panel-inner {
+      overflow: hidden;
+    }
+
+    .tool-body {
+      padding: 0 0.35rem 1.45rem 3.25rem;
+      max-width: 38rem;
+    }
+
+    @media (min-width: 720px) {
+      .tool-body {
+        padding: 0 0.5rem 1.65rem 4rem;
+        margin-left: inherit;
+      }
+      .tool:nth-child(1) .tool-body { margin-left: 0; }
+      .tool:nth-child(2) .tool-body { margin-left: 2.25rem; }
+      .tool:nth-child(3) .tool-body { margin-left: 0.85rem; }
+    }
+
+    .tool-body p {
+      font-size: 1.02rem;
+      line-height: 1.55;
+      margin-bottom: 0.75rem;
+      color: var(--ink);
+    }
+
+    .tool-body .proof-line {
+      font-size: 0.9375rem;
+      color: var(--graphite);
+      margin-bottom: 0;
+    }
+
+    .tool-body .proof-line a {
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 560px) {
+      .tool-rail {
+        grid-template-columns: 2.75rem minmax(0, 1fr) auto;
+      }
+      .tool-id::after { display: none; }
+      .tool-body { padding-left: 2.75rem; }
+    }
+
+    /* —— Proof: overlapping manila folders —— */
+    .drawer {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      padding-top: 0.5rem;
+    }
+
+    @media (min-width: 760px) {
+      .drawer {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0;
+        min-height: 15rem;
+        padding: 1rem 0.5rem 1.5rem;
+      }
+    }
+
+    .folder {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: var(--paper-folder);
+      border: 1px solid var(--rule);
+      padding: 1.35rem 1.2rem 1.45rem;
+      position: relative;
+      min-height: 10.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.15s ease;
+      box-shadow: 1px 2px 0 rgba(26, 22, 18, 0.03);
+    }
+
+    /* Folder tab */
+    .folder::before {
+      content: "";
+      position: absolute;
+      top: -11px;
+      left: 1rem;
+      width: 3.4rem;
+      height: 12px;
+      background: var(--paper-folder);
+      border: 1px solid var(--rule);
+      border-bottom: none;
+      border-radius: 2px 6px 0 0;
+    }
+
+    /* Paper clip */
+    .folder::after {
+      content: "";
+      position: absolute;
+      top: 0.55rem;
+      right: 1.15rem;
+      width: 11px;
+      height: 22px;
+      border: 1.5px solid rgba(138, 122, 104, 0.65);
+      border-radius: 8px;
+      box-shadow: inset 0 0 0 2.5px var(--paper-folder);
+      transform: rotate(12deg);
+      opacity: 0.85;
+    }
+
+    /* Dog-ear */
+    .dogear {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 1.15rem 1.15rem 0;
+      border-color: transparent var(--paper) transparent transparent;
+      filter: drop-shadow(-1px 1px 0 var(--rule-soft));
+      z-index: 1;
+    }
+
+    @media (min-width: 760px) {
+      .folder:nth-child(1) {
+        z-index: 3;
+        transform: rotate(-1.4deg) translateY(0.35rem);
+        margin-right: -1.25rem;
+      }
+      .folder:nth-child(2) {
+        z-index: 2;
+        transform: rotate(1.1deg) translateY(-0.35rem);
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+        background: #E9E1D0;
+      }
+      .folder:nth-child(2)::before { background: #E9E1D0; }
+      .folder:nth-child(2)::after { box-shadow: inset 0 0 0 2.5px #E9E1D0; }
+      .folder:nth-child(3) {
+        z-index: 1;
+        transform: rotate(-0.6deg) translateY(0.55rem);
+        margin-left: -1.25rem;
+        background: #EFE8DA;
+      }
+      .folder:nth-child(3)::before { background: #EFE8DA; left: auto; right: 1.4rem; }
+      .folder:nth-child(3)::after { box-shadow: inset 0 0 0 2.5px #EFE8DA; }
+
+      .folder:hover {
+        z-index: 5;
+        border-color: rgba(196, 92, 38, 0.45);
+        box-shadow: 0 10px 28px rgba(26, 22, 18, 0.08);
+      }
+      .folder:nth-child(1):hover { transform: rotate(-0.4deg) translateY(-0.2rem); }
+      .folder:nth-child(2):hover { transform: rotate(0.3deg) translateY(-0.75rem); }
+      .folder:nth-child(3):hover { transform: rotate(0deg) translateY(-0.15rem); }
+    }
+
+    .folder:hover { color: inherit; }
+
+    @media (max-width: 759px) {
+      .folder:hover {
+        border-color: rgba(196, 92, 38, 0.45);
+        transform: translateY(-2px);
+      }
+    }
+
+    .file-stamp {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 1.5rem;
+    }
+
+    .file-title {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 1.4rem;
+      line-height: 1.15;
+      margin-bottom: 0.55rem;
+      letter-spacing: -0.01em;
+    }
+
+    .file-meta {
+      font-size: 0.9rem;
+      color: var(--graphite);
+      line-height: 1.4;
+      max-width: 22ch;
+    }
+
+    .file-num {
+      position: absolute;
+      bottom: 0.85rem;
+      right: 1rem;
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      letter-spacing: 0.1em;
+      color: var(--graphite);
+      opacity: 0.7;
+    }
+
+    /* —— Ethos —— */
+    .ethos {
+      max-width: 34rem;
+      position: relative;
+    }
+
+    .ethos h2 {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(1.65rem, 3.2vw, 2.2rem);
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      margin-bottom: 1.15rem;
+    }
+
+    .ethos p {
+      margin-bottom: 0.9rem;
+      color: var(--ink);
+    }
+
+    .ethos .line {
+      font-family: var(--display);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.2rem;
+      color: var(--ink);
+      border-left: 2px solid var(--amber);
+      padding-left: 0.9rem;
+      margin: 1.35rem 0 1.1rem;
+    }
+
+    .ethos .aside {
+      color: var(--graphite);
+      font-size: 0.98rem;
+    }
+
+    /* —— Desk edge / bottom rail —— */
+    footer.rail {
+      position: relative;
+      z-index: 2;
+      margin-top: 1rem;
+      background: linear-gradient(180deg, transparent, rgba(138, 122, 104, 0.06) 30%);
+      border-top: 2px solid var(--ink);
+      padding: 1.65rem 1.5rem 2.25rem;
+    }
+
+    @media (min-width: 720px) {
+      footer.rail {
+        padding: 1.85rem 2.75rem 2.5rem;
+        max-width: 1080px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    .rail-inner {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem 2.5rem;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .who {
+      font-family: var(--display);
+      font-size: 1.35rem;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    .who small {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--graphite);
+      margin-top: 0.4rem;
+    }
+
+    .mail {
+      font-family: var(--mono);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+
+    .mail a {
+      text-decoration: none;
+      border-bottom: 1.5px solid rgba(196, 92, 38, 0.55);
+      padding-bottom: 0.05em;
+    }
+
+    .mail a:hover {
+      border-bottom-color: var(--amber);
+    }
+
+    .maker {
+      flex-basis: 100%;
+      font-family: var(--mono);
+      font-size: 0.625rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--graphite);
+      opacity: 0.75;
+      margin-top: 0.35rem;
+    }
+
+    /* —— Charcoal type wall (hero) —— */
+    .wall-wrap {
+      position: relative;
+      z-index: 2;
+      margin: 0 0 0.5rem;
+    }
+
+    .wall {
+      position: relative;
+      background:
+        radial-gradient(ellipse 70% 50% at 18% 12%, rgba(255,255,255,0.045), transparent 52%),
+        radial-gradient(ellipse 55% 45% at 88% 78%, rgba(0,0,0,0.38), transparent 55%),
+        linear-gradient(165deg, #2E2E2E 0%, #222222 42%, #1A1A1A 100%);
+      min-height: clamp(22rem, 48vw, 30rem);
+      padding: 2.75rem 1.25rem 2.5rem;
+      overflow: hidden;
+      box-shadow: inset 0 0 90px rgba(0,0,0,0.32);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    @media (min-width: 720px) {
+      .wall {
+        padding: 3.25rem 2rem 3rem;
+        min-height: clamp(24rem, 38vw, 32rem);
+      }
+    }
+
+    /* subtle board grain */
+    .wall::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.22;
+      mix-blend-mode: soft-light;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 160px 160px;
+    }
+
+    .wall-stamp {
+      position: absolute;
+      top: 1rem;
+      left: 1.15rem;
+      z-index: 5;
+      font-family: var(--mono);
+      font-size: 0.625rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(244, 239, 230, 0.48);
+    }
+    .wall-stamp .amp { color: rgba(196, 92, 38, 0.8); margin: 0 0.12em; }
+
+    .wall-board {
+      position: relative;
+      z-index: 2;
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+
+    .wall-board > h1 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.85rem;
+      width: 100%;
+      font-size: inherit;
+      font-weight: inherit;
+      margin: 0;
+    }
+
+    .line-boards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0.55rem 0.65rem;
+      width: 100%;
+      margin: 0;
+    }
+
+    .line-boards.line-2 {
+      gap: 0.5rem 0.55rem;
+    }
+
+    /* Pinned type comps — CD lettering wall */
+    .pin.word {
+      position: relative;
+      background: #F2E9D8;
+      color: #14110E;
+      border: 1px solid rgba(20,17,14,0.1);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.4) inset,
+        0 1px 3px rgba(0,0,0,0.28),
+        0 6px 14px rgba(0,0,0,0.2);
+      padding: 0.85rem 1.05rem 0.8rem;
+      line-height: 0.95;
+      transform: rotate(var(--r, 0deg));
+      text-transform: none;
+      letter-spacing: normal;
+      font-weight: 400;
+    }
+
+    /* pushpin */
+    .pin.word::before {
+      content: "";
+      position: absolute;
+      top: 0.32rem;
+      left: 50%;
+      width: 7px;
+      height: 7px;
+      margin-left: -3.5px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #6e6e6e, #1c1c1c 72%);
+      box-shadow: 0 1px 1px rgba(0,0,0,0.45);
+      z-index: 2;
+    }
+
+    /* subtle tape on selected comps */
+    .pin.word.tape::after {
+      content: "";
+      position: absolute;
+      top: -0.35rem;
+      left: 18%;
+      width: 28%;
+      height: 0.55rem;
+      background: linear-gradient(180deg, rgba(214,198,160,0.55), rgba(196,176,140,0.4));
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.04);
+      transform: rotate(-1deg);
+      pointer-events: none;
+    }
+
+    .pin.word .sr-period {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+    }
+
+    /* —— Per-word type treatments —— */
+    .pin.w-big {
+      font-family: "Bebas Neue", Impact, sans-serif;
+      font-size: clamp(2.4rem, 8.5vw, 4.6rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.95rem 1.15rem 0.75rem;
+      padding-top: 1.15rem;
+    }
+
+    .pin.w-agency {
+      font-family: "Archivo Black", "Arial Black", sans-serif;
+      font-size: clamp(1.55rem, 5.2vw, 2.85rem);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      padding: 1rem 1.2rem 0.9rem;
+      padding-top: 1.2rem;
+    }
+
+    .pin.w-thinking {
+      font-family: "DM Serif Display", Georgia, serif;
+      font-style: italic;
+      font-size: clamp(1.65rem, 5.4vw, 3rem);
+      letter-spacing: 0.01em;
+      text-transform: none;
+      padding: 0.95rem 1.25rem 0.95rem;
+      padding-top: 1.15rem;
+      background: #F7F1E4;
+    }
+
+    .pin.w-without {
+      font-family: "Caveat", "Segoe Script", cursive;
+      font-weight: 600;
+      font-size: clamp(1.85rem, 5.8vw, 3.1rem);
+      letter-spacing: 0.01em;
+      text-transform: none;
+      padding: 0.7rem 1.1rem 0.55rem;
+      padding-top: 0.95rem;
+      background: #EFE6D4;
+      color: #1A1612;
+    }
+
+    .pin.w-the {
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: clamp(0.85rem, 2.4vw, 1.15rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 0.95rem 0.85rem 0.85rem;
+      padding-top: 1.1rem;
+      background: #E8DFCE;
+      color: #3A342C;
+    }
+
+    .pin.w-big-2 {
+      font-family: "Bebas Neue", Impact, sans-serif;
+      font-size: clamp(2rem, 6.8vw, 3.6rem);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.9rem 1.05rem 0.7rem;
+      padding-top: 1.1rem;
+      background: #F4EBDA;
+    }
+
+    .pin.w-agency-2 {
+      font-family: "Fraunces", Georgia, serif;
+      font-weight: 600;
+      font-optical-sizing: auto;
+      font-size: clamp(1.45rem, 4.8vw, 2.55rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.95rem 1.2rem 0.9rem;
+      padding-top: 1.15rem;
+      background: #F6EFE0;
+    }
+
+    /* dark board variant — cream type */
+    .pin.word.ink {
+      background: #1F1C18;
+      color: #F2E9D8;
+      border-color: rgba(255,255,255,0.06);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.06) inset,
+        0 1px 3px rgba(0,0,0,0.4),
+        0 8px 16px rgba(0,0,0,0.28);
+    }
+    .pin.word.ink::before {
+      background: radial-gradient(circle at 35% 30%, #8a8a8a, #2a2a2a 72%);
+    }
+
+    .wall-quiet {
+      position: relative;
+      z-index: 2;
+      margin: 0 auto;
+      padding: 1.25rem 1.5rem 0.35rem;
+      font-family: var(--body);
+      font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+      line-height: 1.35;
+      font-weight: 500;
+      color: var(--ink);
+      border-left: 2.5px solid rgba(196, 92, 38, 0.7);
+      padding-left: 0.95rem;
+      max-width: 40rem;
+      margin-left: 1.5rem;
+      margin-right: auto;
+      letter-spacing: 0.01em;
+    }
+
+    @media (min-width: 720px) {
+      .wall-quiet {
+        margin-left: max(1.5rem, calc((100% - 1080px) / 2 + 2.75rem));
+        padding-top: 1.35rem;
+      }
+    }
+
+    @media (max-width: 519px) {
+      .line-boards { gap: 0.4rem 0.4rem; }
+      .pin.word { padding-left: 0.75rem; padding-right: 0.75rem; }
+    }
+
+    .mast { display: none !important; }
+
+  </style>
+</head>
+<body>
+  <span class="reg reg-tl" aria-hidden="true"></span>
+  <span class="reg reg-tr" aria-hidden="true"></span>
+  <span class="reg reg-bl" aria-hidden="true"></span>
+  <span class="reg reg-br" aria-hidden="true"></span>
+
+
+  <div class="wall-wrap">
+    <section class="wall" aria-label="Beehive type wall">
+      <p class="wall-stamp">Beehive <span class="amp">&amp;</span> Branch</p>
+
+      <div class="wall-board">
+        <h1>
+          <span class="line-boards line-1">
+            <span class="pin word w-big tape" style="--r:-0.4deg">Big</span>
+            <span class="pin word w-agency" style="--r:0.25deg">Agency</span>
+            <span class="pin word w-thinking tape" style="--r:-0.2deg">Thinking<span class="sr-period">.</span></span>
+          </span>
+          <span class="line-boards line-2">
+            <span class="pin word w-without" style="--r:0.35deg">Without</span>
+            <span class="pin word w-the" style="--r:-0.15deg">The</span>
+            <span class="pin word w-big-2 ink" style="--r:0.2deg">Big</span>
+            <span class="pin word w-agency-2 tape" style="--r:-0.3deg">Agency<span class="sr-period">.</span></span>
+          </span>
+        </h1>
+      </div>
+    </section>
+    <p class="wall-quiet">A creative director who builds the AI too. Utah.</p>
+  </div>
+
+  <div class="desk">
+<section class="block" aria-labelledby="bench-label">
+      <p class="stamp" id="bench-label">On the bench</p>
+      <div class="bench" role="list">
+
+        <button class="tool" type="button" aria-expanded="false" role="listitem">
+          <div class="tool-rail">
+            <span class="tool-id">01</span>
+            <span class="tool-name">Ops Agents</span>
+            <span class="tool-tag">Inbox · Batch</span>
+            <span class="tool-hint">Pull</span>
+          </div>
+          <div class="tool-panel">
+            <div class="tool-panel-inner">
+              <div class="tool-body">
+                <p>Inbox and voice triage. Scheduled pulls. IG and batch work that sits until you say go.</p>
+                <p class="proof-line">On the floor now: NIYA email manager + @niyamodels batch plan. <a href="https://rhettboyakin-code.github.io/niya-orient/" target="_blank" rel="noopener">NIYA orient</a></p>
+              </div>
+            </div>
+          </div>
+        </button>
+
+        <button class="tool" type="button" aria-expanded="false" role="listitem">
+          <div class="tool-rail">
+            <span class="tool-id">02</span>
+            <span class="tool-name">Brand &amp; Site</span>
+            <span class="tool-tag">Structure · Voice</span>
+            <span class="tool-hint">Pull</span>
+          </div>
+          <div class="tool-panel">
+            <div class="tool-panel-inner">
+              <div class="tool-body">
+                <p>Sites and systems with CD taste. Structure, voice, and craft that still look right after launch week.</p>
+                <p class="proof-line">Proof: <a href="https://rhettboyakin-code.github.io/ihlab-site/" target="_blank" rel="noopener">IHLab</a></p>
+              </div>
+            </div>
+          </div>
+        </button>
+
+        <button class="tool" type="button" aria-expanded="false" role="listitem">
+          <div class="tool-rail">
+            <span class="tool-id">03</span>
+            <span class="tool-name">CD + AI</span>
+            <span class="tool-tag">Idea · Artifact</span>
+            <span class="tool-hint">Pull</span>
+          </div>
+          <div class="tool-panel">
+            <div class="tool-panel-inner">
+              <div class="tool-body">
+                <p>Idea-led decks. Design skill. Artifact-first work. AI stays a tool on the desk.</p>
+                <p class="proof-line">I’ll write the line. You’ll ship the system. Craft: <a href="https://builders.leland.ai/ai-builders-l1-sep1/rhett-boyakin" target="_blank" rel="noopener">Leland portfolio</a> · <a href="https://rhettboyakin.com" target="_blank" rel="noopener">rhettboyakin.com</a></p>
+              </div>
+            </div>
+          </div>
+        </button>
+
+      </div>
+    </section>
+
+    <hr class="cut" aria-hidden="true" />
+
+    <section class="block" aria-labelledby="drawer-label">
+      <p class="stamp" id="drawer-label">Proof drawer</p>
+      <div class="drawer">
+
+        <a class="folder" href="https://rhettboyakin-code.github.io/ihlab-site/" target="_blank" rel="noopener">
+          <span class="dogear" aria-hidden="true"></span>
+          <p class="file-stamp">File · Site</p>
+          <h3 class="file-title">IHLab</h3>
+          <p class="file-meta">Brand &amp; site build. CD taste in the bones.</p>
+          <span class="file-num">BB-02</span>
+        </a>
+
+        <a class="folder" href="https://builders.leland.ai/ai-builders-l1-sep1/rhett-boyakin" target="_blank" rel="noopener">
+          <span class="dogear" aria-hidden="true"></span>
+          <p class="file-stamp">File · Craft</p>
+          <h3 class="file-title">Leland portfolio</h3>
+          <p class="file-meta">Deck and builds from class. Martin as craft proof.</p>
+          <span class="file-num">BB-03</span>
+        </a>
+
+        <a class="folder" href="https://rhettboyakin-code.github.io/niya-orient/" target="_blank" rel="noopener">
+          <span class="dogear" aria-hidden="true"></span>
+          <p class="file-stamp">File · Ops</p>
+          <h3 class="file-title">NIYA orient</h3>
+          <p class="file-meta">Real shop floor. Email manager. Batch workflows that wait for approval.</p>
+          <span class="file-num">BB-04</span>
+        </a>
+
+      </div>
+    </section>
+
+    <section class="block ethos" aria-labelledby="ethos-h">
+      <p class="stamp">How we work</p>
+      <h2 id="ethos-h">Approve before send.</h2>
+      <p>I draft. You read. Nothing leaves without your name on it.</p>
+      <p class="line">I’ll write the line. You’ll ship the system.</p>
+      <p class="aside">Proof over claims. Taste in the room. The system runs; the judgment stays human.</p>
+    </section>
+
+  </div>
+
+  <footer class="rail">
+    <div class="rail-inner">
+      <div class="who">
+        Rhett Boyakin
+        <small>Beehive &amp; Branch LLC · Utah</small>
+      </div>
+      <p class="mail"><a href="mailto:rhett@beehivebranch.com">rhett@beehivebranch.com</a></p>
+      <p class="maker">Printed on the desk · Not a template</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var tools = document.querySelectorAll(".tool");
+      tools.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var open = btn.getAttribute("aria-expanded") === "true";
+          tools.forEach(function (other) {
+            other.setAttribute("aria-expanded", "false");
+            var hint = other.querySelector(".tool-hint");
+            if (hint) hint.textContent = "Pull";
+          });
+          if (!open) {
+            btn.setAttribute("aria-expanded", "true");
+            var h = btn.querySelector(".tool-hint");
+            if (h) h.textContent = "Hang";
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
