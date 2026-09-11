@@ -539,6 +539,158 @@
       .tool-body { padding-left: 2.75rem; }
     }
 
+
+    .tool-price {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-top: 0.2rem;
+      grid-column: 2;
+    }
+
+    .tool-body .price-line {
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      letter-spacing: 0.03em;
+      color: var(--ink);
+      margin-bottom: 0.65rem;
+    }
+
+    /* —— Pricing strip —— */
+    .pricing-strip {
+      margin-top: 0.25rem;
+      padding: 1.15rem 0 0.25rem;
+      border-top: 1px dashed var(--rule);
+    }
+
+    .pricing-strip .price-lead {
+      font-family: var(--mono);
+      font-size: 0.625rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.55rem;
+    }
+
+    .pricing-strip .price-row {
+      font-family: var(--mono);
+      font-size: 0.875rem;
+      letter-spacing: 0.02em;
+      line-height: 1.55;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+
+    .pricing-strip .price-row strong {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .pricing-strip .retainer-row {
+      font-size: 0.8125rem;
+      color: var(--graphite);
+      margin-top: 0.55rem;
+    }
+
+    .pricing-strip .price-note {
+      font-size: 0.875rem;
+      color: var(--graphite);
+      margin-top: 0.65rem;
+      max-width: 36rem;
+    }
+
+    /* —— Primary quote CTA —— */
+    .quote-cta {
+      margin: 1.75rem 0 0.5rem;
+      padding: 1.35rem 1.25rem 1.45rem;
+      border: 1px solid var(--rule);
+      background: linear-gradient(180deg, rgba(196, 92, 38, 0.06), transparent 70%);
+      position: relative;
+      max-width: 36rem;
+    }
+
+    .quote-cta::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--amber);
+    }
+
+    .quote-cta .cta-stamp {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 0.55rem;
+    }
+
+    .quote-cta p {
+      font-size: 1rem;
+      margin-bottom: 0.95rem;
+      max-width: 32rem;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--paper);
+      background: var(--ink);
+      border: 1.5px solid var(--ink);
+      padding: 0.7rem 1.15rem;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .cta-btn:hover {
+      background: var(--amber);
+      border-color: var(--amber);
+      color: var(--paper);
+    }
+
+    .cta-btn:focus-visible {
+      outline: 2px solid var(--amber);
+      outline-offset: 3px;
+    }
+
+    /* Bloom note section */
+    #bloom.bloom-note {
+      max-width: 36rem;
+      margin-top: 0.5rem;
+    }
+
+    #bloom.bloom-note h2 {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: clamp(1.35rem, 2.8vw, 1.75rem);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+    }
+
+    #bloom.bloom-note p {
+      margin-bottom: 0.7rem;
+      color: var(--ink);
+    }
+
+    #bloom.bloom-note .aside {
+      color: var(--graphite);
+      font-size: 0.95rem;
+    }
+
     /* —— Proof: overlapping manila folders —— */
     .drawer {
       display: flex;
@@ -551,10 +703,19 @@
     @media (min-width: 760px) {
       .drawer {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.15rem 1.25rem;
+        min-height: auto;
+        padding: 1rem 0.25rem 1.5rem;
+      }
+    }
+
+    @media (min-width: 1100px) {
+      .drawer {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         gap: 0;
         min-height: 15rem;
-        padding: 1rem 0.5rem 1.5rem;
+        padding: 1rem 0.25rem 1.75rem;
       }
     }
 
@@ -616,36 +777,57 @@
 
     @media (min-width: 760px) {
       .folder:nth-child(1) {
-        z-index: 3;
-        transform: rotate(-1.4deg) translateY(0.35rem);
-        margin-right: -1.25rem;
+        z-index: 4;
+        transform: rotate(-1.1deg) translateY(0.2rem);
       }
       .folder:nth-child(2) {
-        z-index: 2;
-        transform: rotate(1.1deg) translateY(-0.35rem);
-        margin-left: -0.5rem;
-        margin-right: -0.5rem;
+        z-index: 3;
+        transform: rotate(0.9deg) translateY(-0.15rem);
         background: #E9E1D0;
       }
       .folder:nth-child(2)::before { background: #E9E1D0; }
       .folder:nth-child(2)::after { box-shadow: inset 0 0 0 2.5px #E9E1D0; }
       .folder:nth-child(3) {
-        z-index: 1;
-        transform: rotate(-0.6deg) translateY(0.55rem);
-        margin-left: -1.25rem;
+        z-index: 2;
+        transform: rotate(-0.7deg) translateY(0.35rem);
         background: #EFE8DA;
       }
       .folder:nth-child(3)::before { background: #EFE8DA; left: auto; right: 1.4rem; }
       .folder:nth-child(3)::after { box-shadow: inset 0 0 0 2.5px #EFE8DA; }
+      .folder:nth-child(4) {
+        z-index: 1;
+        transform: rotate(0.55deg) translateY(0.1rem);
+        background: #E6DFD0;
+      }
+      .folder:nth-child(4)::before { background: #E6DFD0; }
+      .folder:nth-child(4)::after { box-shadow: inset 0 0 0 2.5px #E6DFD0; }
 
       .folder:hover {
-        z-index: 5;
+        z-index: 6;
         border-color: rgba(196, 92, 38, 0.45);
         box-shadow: 0 10px 28px rgba(26, 22, 18, 0.08);
       }
-      .folder:nth-child(1):hover { transform: rotate(-0.4deg) translateY(-0.2rem); }
-      .folder:nth-child(2):hover { transform: rotate(0.3deg) translateY(-0.75rem); }
-      .folder:nth-child(3):hover { transform: rotate(0deg) translateY(-0.15rem); }
+      .folder:nth-child(1):hover { transform: rotate(-0.3deg) translateY(-0.25rem); }
+      .folder:nth-child(2):hover { transform: rotate(0.25deg) translateY(-0.45rem); }
+      .folder:nth-child(3):hover { transform: rotate(0deg) translateY(-0.2rem); }
+      .folder:nth-child(4):hover { transform: rotate(0.15deg) translateY(-0.35rem); }
+    }
+
+    @media (min-width: 1100px) {
+      .folder:nth-child(1) {
+        margin-right: -1rem;
+      }
+      .folder:nth-child(2) {
+        margin-left: -0.4rem;
+        margin-right: -0.4rem;
+      }
+      .folder:nth-child(3) {
+        margin-left: -0.4rem;
+        margin-right: -0.4rem;
+      }
+      .folder:nth-child(4) {
+        margin-left: -1rem;
+      }
     }
 
     .folder:hover { color: inherit; }
@@ -1116,12 +1298,15 @@
             <span class="tool-name">Ops Agents</span>
             <span class="tool-tag">Inbox · Batch</span>
             <span class="tool-hint">Pull</span>
+            <span class="tool-price">From $2,500</span>
           </div>
           <div class="tool-panel">
             <div class="tool-panel-inner">
               <div class="tool-body">
                 <p>Inbox and voice triage. Scheduled pulls. IG and batch work that sits until you say go.</p>
+                <p class="price-line">Starting at $2,500 · Ops care from $1,500/mo</p>
                 <p class="proof-line">On the floor now: NIYA email manager + @niyamodels batch plan. <a href="https://rhettboyakin-code.github.io/niya-orient/" target="_blank" rel="noopener">NIYA orient</a></p>
+                <p class="proof-line"><strong>Revenue Bloom</strong> — found-money product for trade shops. Phase 1: seeded on their book; live Jobber later. <!-- BLOOM_DEMO_URL --><a href="#bloom">Revenue Bloom demo (soon)</a> · <a href="https://rhettboyakin.com/work/found-money-friend.html" target="_blank" rel="noopener">case notes</a></p>
               </div>
             </div>
           </div>
@@ -1133,11 +1318,13 @@
             <span class="tool-name">Brand &amp; Site</span>
             <span class="tool-tag">Structure · Voice</span>
             <span class="tool-hint">Pull</span>
+            <span class="tool-price">From $6,000</span>
           </div>
           <div class="tool-panel">
             <div class="tool-panel-inner">
               <div class="tool-body">
                 <p>Sites and systems with CD taste. Structure, voice, and craft that still look right after launch week.</p>
+                <p class="price-line">Starting at $6,000</p>
                 <p class="proof-line">Proof: <a href="https://rhettboyakin-code.github.io/ihlab-site/" target="_blank" rel="noopener">IHLab</a></p>
               </div>
             </div>
@@ -1150,17 +1337,32 @@
             <span class="tool-name">CD + AI</span>
             <span class="tool-tag">Idea · Artifact</span>
             <span class="tool-hint">Pull</span>
+            <span class="tool-price">From $3,500</span>
           </div>
           <div class="tool-panel">
             <div class="tool-panel-inner">
               <div class="tool-body">
                 <p>Idea-led decks. Design skill. Artifact-first work. AI stays a tool on the desk.</p>
+                <p class="price-line">Starting at $3,500 · CD on-call from $2,500/mo</p>
                 <p class="proof-line">I’ll write the line. You’ll ship the system. Craft: <a href="https://builders.leland.ai/ai-builders-l1-sep1/rhett-boyakin" target="_blank" rel="noopener">Leland portfolio</a> · <a href="https://rhettboyakin.com" target="_blank" rel="noopener">rhettboyakin.com</a></p>
               </div>
             </div>
           </div>
         </button>
 
+      </div>
+
+      <div class="pricing-strip" aria-label="Starting-at prices">
+        <p class="price-lead">Starting at</p>
+        <p class="price-row"><strong>Ops Agents</strong> from $2,500 · <strong>Brand &amp; Site</strong> from $6,000 · <strong>CD + AI</strong> from $3,500</p>
+        <p class="retainer-row">Retainers: Ops care from $1,500/mo · CD on-call from $2,500/mo</p>
+        <p class="price-note">Typical ranges. Scope always custom-quotes up. Deposit before build; final pay before files or go-live.</p>
+      </div>
+
+      <div class="quote-cta">
+        <p class="cta-stamp">Next step</p>
+        <p>Tell me the shop, the mess, and the deadline. I’ll send a one-page SOW with a clear number.</p>
+        <a class="cta-btn" href="mailto:rhett@beehivebranch.com?subject=Custom%20quote%20%C2%B7%20Beehive%20%26%20Branch">Get a custom quote</a>
       </div>
     </section>
 
@@ -1194,6 +1396,14 @@
           <span class="file-num">BB-04</span>
         </a>
 
+        <a class="folder" href="https://rhettboyakin.com/work/found-money-friend.html" target="_blank" rel="noopener">
+          <span class="dogear" aria-hidden="true"></span>
+          <p class="file-stamp">File · Bloom</p>
+          <h3 class="file-title">Revenue Bloom</h3>
+          <p class="file-meta">Found money in the book. Seeded phase 1; Jobber live later. Approve before act.</p>
+          <span class="file-num">BB-05</span>
+        </a>
+
       </div>
     </section>
 
@@ -1204,6 +1414,22 @@
       <p class="line">I’ll write the line. You’ll ship the system.</p>
       <p class="aside">Proof over claims. Taste in the room. The system runs; the judgment stays human.</p>
     </section>
+
+    <hr class="cut" aria-hidden="true" />
+
+    <section class="block bloom-note" id="bloom" aria-labelledby="bloom-h">
+      <p class="stamp">Found money</p>
+      <h2 id="bloom-h">Revenue Bloom</h2>
+      <p>An AI loop that finds money already sitting in a trade shop’s book — stale estimates, overdue PMs, incomplete quotes — then recommends the next move and waits for approval before it acts.</p>
+      <p class="aside">Phase 1 honesty: seeded on client exports / a demo book. Jobber and ServiceTitan go live in a later phase. Public interactive demo URL pending host. Case notes live on rhettboyakin.com.</p>
+      <p class="aside"><!-- BLOOM_DEMO_URL -->Revenue Bloom demo (soon) · <a href="https://rhettboyakin.com/work/found-money-friend.html" target="_blank" rel="noopener">rhettboyakin.com case</a></p>
+    </section>
+
+    <div class="quote-cta">
+      <p class="cta-stamp">Start here</p>
+      <p>Custom quote for Ops, Brand &amp; Site, CD + AI, or Revenue Bloom setup.</p>
+      <a class="cta-btn" href="mailto:rhett@beehivebranch.com?subject=Custom%20quote%20%C2%B7%20Beehive%20%26%20Branch">Get a custom quote</a>
+    </div>
 
   </div>
 
